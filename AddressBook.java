@@ -23,10 +23,27 @@ public class AddressBook {
             System.out.println("Enter the E-mail : ");
             contact.setEmail(scanner.next());
             displayDetails();
+            update();
+    }
+
+    public void update() {
+        char input = 'Y';
+        System.out.println("Do you want edit anything ('Y' or 'N'): ");
+        input = scanner.next().charAt(0);
+        if(input == 'y' || input == 'Y') {
             editContact(contact);
+        }
+        System.out.println("Do you want delete anything ('Y' or 'N') : ");
+        input = scanner.next().charAt(0);
+        if(input == 'y' || input == 'Y') {
+            deleteContact(contact);
+        }
     }
     public void displayDetails() {
         System.out.println(contact);
+    }
+    public void displayDetails(Contact contactDelete) {
+        System.out.println(contactDelete);
     }
     public void editContact(Contact contact) {
         int choice = 0;
@@ -88,6 +105,62 @@ public class AddressBook {
         else if (continueEdit == 'N' || continueEdit == 'n') {
             System.out.println("\n\nHere is the updated Address Book.");
             displayDetails();
+        }
+        else {
+            System.out.println("\nInvalid Input.\nPlease try again!");
+        }
+    }
+    public void deleteContact(Contact contactDelete) {
+
+        int ch = 0;
+        while (ch < 1 || ch > 4) {
+            System.out.println("\nWhat would you like to delete?");
+            System.out.println("1. Name");
+            System.out.println("2. Phone Number");
+            System.out.println("3. Email Id");
+            System.out.println("4. Address");
+            System.out.print("\nEnter your choice : ");
+            ch = scanner.nextInt();
+
+            if (!(ch >=1 && ch <= 4))
+                System.out.println("\nInvalid choice!\nPlease try again.\n");
+        }
+
+        switch (ch) {
+            case 1 :
+                System.out.print("Name deleted!");
+                contactDelete.setFirstName("deleted");
+                contactDelete.setLastName("deleted");
+                break;
+
+            case 2 :
+                System.out.print("Phone number deleted!");
+                contactDelete.setPhoneNo(Integer.parseInt("deleted"));
+                break;
+
+            case 3 :
+                System.out.print("Email deleted!");
+                contactDelete.setEmail("deleted");
+                break;
+
+            case 4 :
+                System.out.print("Address deleted!");
+
+                contactDelete.setCity("deleted");
+                contactDelete.setState("deleted");
+                contactDelete.setZipCode(Integer.parseInt("deleted"));
+                break;
+        }
+        System.out.println("\nIs there anything else you'd like to delete?");
+        System.out.print("Enter 'Y' or 'N' : ");
+        char continueEdit = scanner.next().charAt(0);
+        if (continueEdit == 'Y' || continueEdit == 'y') {
+            deleteContact(contactDelete);
+
+        }
+        else if (continueEdit == 'N' || continueEdit == 'n') {
+            System.out.println("\n\nHere is the updated Address Book.");
+            displayDetails(contactDelete);
         }
         else {
             System.out.println("\nInvalid Input.\nPlease try again!");
